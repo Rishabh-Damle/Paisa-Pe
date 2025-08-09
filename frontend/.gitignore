@@ -1,0 +1,29 @@
+# 💸 Paisa-Pe
+
+**Paisa-Pe** is a simple and secure application that allows users to send money to each other seamlessly.
+
+---
+
+## 🚀 Tech Stack
+
+- **Frontend:** React (Next.js planned)  
+- **Backend:** Node.js / Express  
+- **Database:** MongoDB / PostgreSQL  
+- **Payment Integration:** Razorpay / Stripe / UPI APIs (planned)  
+- **Authentication:** JWT / OAuth (planned)  
+
+---
+
+## 📌 Future Plans
+
+- Transaction history & receipts  
+- Multi-currency support  
+- Peer-to-peer QR code payments  
+- Two-factor authentication  
+- Scheduled & recurring payments  
+
+---
+
+## 📜 License
+
+[MIT](LICENSE)
