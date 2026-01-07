@@ -1,60 +1,142 @@
-<h1 align="center">💸 Paisa-Pe – Secure Peer-to-Peer Payment App</h1>
+# Paisa-Pe
 
-<p align="center">
-  <b>Paisa-Pe</b> is a simple and secure application that allows users to send money to each other seamlessly.
-</p>
+Paisa-Pe is a basic digital wallet and peer-to-peer payment application inspired by platforms like Paytm.
+It allows users to securely register, manage their balance, and transfer money to other users in a simple and fast way.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge&logo=react&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Backend-Node.js%20%2F%20Express-green?style=for-the-badge&logo=node.js&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Database-MongoDB%20%2F%20PostgreSQL-darkgreen?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge"/>
-</p>
+The project focuses on understanding real-world payment flows, authentication, and transaction handling using a modern full-stack setup.
 
----
+# Problem Statement
 
-## ✨ Features
+Traditional cash transactions are slow, inconvenient, and hard to track.
+Even digital payments can become complex if the system is not simple, secure, and reliable.
 
-- 💸 Send and receive money securely
-- 🧾 Transaction history and receipts (planned)
-- 🌐 Multi-currency support (planned)
-- 📱 Peer-to-peer QR code payments (planned)
-- 🔒 Two-factor authentication (planned)
-- ⏰ Scheduled & recurring payments (planned)
+Paisa-Pe aims to solve this by providing:
 
----
+- A simple wallet-based payment system
 
-## 🛠️ Tech Stack
+- Secure user authentication
 
-| Layer                   | Technology                             |
-| ----------------------- | -------------------------------------- |
-| **Frontend**            | React (Next.js planned)                |
-| **Backend**             | Node.js • Express                      |
-| **Database**            | MongoDB • PostgreSQL                   |
-| **Payment Integration** | Razorpay • Stripe • UPI APIs (planned) |
-| **Authentication**      | JWT / OAuth (planned)                  |
+- Easy peer-to-peer money transfers
 
----
+This project is built as a learning-focused implementation of a real-world fintech product.
 
-## 🚀 Getting Started
+Features
 
-```bash
-# Clone the repository
+User Authentication
+
+- User signup and login
+
+- Secure authentication flow
+
+- Protected routes for logged-in users
+
+Wallet System
+
+- Each user has a wallet balance
+
+- Balance stored and managed securely in the database
+
+Peer-to-Peer Transfers
+
+- Send money to other registered users
+
+- Instant balance updates for sender and receiver
+
+- Transaction consistency ensured on the backend
+
+Transaction Handling
+
+- Proper debit and credit flow
+
+- Basic validation for insufficient balance
+
+- Atomic operations to prevent incorrect transfers
+
+Tech Stack
+Frontend
+
+- React
+
+- Tailwind CSS
+
+Backend
+
+- Node.js
+
+- Express.js
+
+- TypeScript
+
+Database
+
+- MongoDB
+
+Project Structure (High Level)
+
+Frontend
+
+- React components
+
+- Tailwind-based UI
+
+- API integration with backend
+
+Backend
+
+- Express REST APIs
+
+- Authentication middleware
+
+- Wallet and transaction logic
+
+Database
+
+- User collection
+
+- Wallet balance and transaction records
+
+Future Scope
+
+- Transaction history for users
+
+- JWT refresh tokens and better auth security
+
+- Role-based access (admin / user)
+
+- UPI-style QR code payments
+
+- Notifications for successful transactions
+
+- Rate limiting and fraud prevention
+
+Quick Start
+
+Clone the repository
 git clone https://github.com/your-username/paisa-pe.git
 cd paisa-pe
 
-# Install dependencies
+Install dependencies
+
+Backend
+cd backend
 npm install
 
-# Run the app
+Environment Variables (Backend)
+
+Create a .env file:
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+
+Run the application
+
+Start backend
 npm run dev
 
-🤝 Contributing
+Start frontend
+npm run dev
 
-Contributions are welcome!
-Fork the repo, create a feature branch, and submit a pull request.
+Disclaimer
 
-📜 License
-
-This project is licensed under the MIT License.
-```
+Paisa-Pe is a learning project and not intended for real financial use.
+It does not handle real money or production-level security practices.
