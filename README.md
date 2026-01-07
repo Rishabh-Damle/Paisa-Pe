@@ -5,8 +5,6 @@ It allows users to securely register, manage their balance, and send money to ot
 
 This project focuses on understanding real-world payment flows, authentication, and transaction handling using a modern full-stack setup.
 
----
-
 ## Problem Statement
 
 Traditional cash transactions are slow, inconvenient, and hard to track.  
@@ -19,8 +17,6 @@ Paisa-Pe aims to solve this by providing:
 - Easy peer-to-peer money transfers
 
 This project is built as a learning-focused implementation of a real-world fintech product.
-
----
 
 ## Features
 
@@ -47,8 +43,6 @@ This project is built as a learning-focused implementation of a real-world finte
 - Basic validation for insufficient balance
 - Atomic operations to prevent incorrect transfers
 
----
-
 ## Tech Stack
 
 ### Frontend
@@ -65,8 +59,6 @@ This project is built as a learning-focused implementation of a real-world finte
 ### Database
 
 - MongoDB
-
----
 
 ## Project Structure (High Level)
 
@@ -87,8 +79,6 @@ This project is built as a learning-focused implementation of a real-world finte
 - User collection
 - Wallet balance and transaction records
 
----
-
 ## Future Scope
 
 - Transaction history for users
@@ -97,8 +87,6 @@ This project is built as a learning-focused implementation of a real-world finte
 - UPI-style QR code payments
 - Notifications for successful transactions
 - Rate limiting and fraud prevention
-
----
 
 ## Quick Start
 
