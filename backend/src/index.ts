@@ -1,8 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
+import cors from "cors";
+import { userRouter } from "./routes/user.js";
+import { PORT } from "./config.js";
 const app = express();
-
-app.get("/hello", (req, res) => {
-  res.send("Hi there");
-});
-
-app.listen(3000);
+app.use(cors());
+app.use(express.json());
+app.use("api/v1/user", userRouter);
+app.listen(PORT);
