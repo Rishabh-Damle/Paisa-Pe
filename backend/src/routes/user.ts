@@ -3,7 +3,7 @@ import Router from "express";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import { UserModel } from "../db.js";
+import { UserModel, AccountsModel } from "../db.js";
 import { JWT_SECRET } from "../config.js";
 import { userAuth } from "../middlwares/userAuth.js";
 import type { IGetUserAuthInfoRequest } from "../types/express/index.js";
@@ -52,11 +52,17 @@ userRouter.post("/signup", async (req, res) => {
   const hasshedPassword = await bcrypt.hash(password, 10);
 
   try {
-    await UserModel.create({
+    const user = await UserModel.create({
       username,
       password: hasshedPassword,
       firstName,
       lastName,
+    });
+
+    const userId = user._id;
+    await AccountsModel.create({
+      user: userId,
+      balance: 1 + Math.random() * 1000,
     });
   } catch (error) {
     res.status(404).json({
@@ -64,6 +70,7 @@ userRouter.post("/signup", async (req, res) => {
       error,
     });
   }
+
   res.status(200).json({ Message: `Signed up succsessfully` });
 });
 
