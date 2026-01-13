@@ -5,6 +5,8 @@ import { z } from "zod";
 import bcrypt from "bcrypt";
 import { UserModel } from "../db.js";
 import { JWT_SECRET } from "../config.js";
+import { userAuth } from "../middlwares/userAuth.js";
+import type { IGetUserAuthInfoRequest } from "../types/express/index.js";
 export const userRouter = Router();
 
 userRouter.use(express.json());
@@ -92,5 +94,51 @@ userRouter.post("/signin", async (req, res) => {
   res.status(200).json({
     Message: `Signed up succsessfully`,
     Token: token,
+  });
+});
+
+userRouter.put(
+  "/updateInfo",
+  userAuth,
+  async (req: IGetUserAuthInfoRequest, res) => {
+    const userId = req.userId;
+    const updateBody = z.object({
+      password: z.string().optional(),
+      firstName: z.string().optional(),
+      lastName: z.string().optional(),
+    });
+    const parsedDataWithSuccsess = updateBody.safeParse(req.body);
+    if (!parsedDataWithSuccsess.success) {
+      res.status(401).json({
+        Message: `Error while updating information`,
+        Error: parsedDataWithSuccsess.error,
+      });
+    }
+
+    await UserModel.updateOne({ userId }, req.body);
+    res.status(200).json({
+      Message: `Information updated succsessfully`,
+    });
+  }
+);
+
+userRouter.get("/getUsersInfo", userAuth, async (req, res) => {
+  const { firstName, lastName } = req.body;
+  const users = await UserModel.find({
+    $or: [{ firstName: firstName }, { lastName: lastName }],
+  });
+
+  if (!users) {
+    res.status(404).json({
+      Message: "Error while fetching users from DB",
+    });
+  }
+
+  res.status(200).json({
+    User: users.map((user) => ({
+      username: user.username,
+      firstname: user.firstName,
+      lastName: user.lastName,
+    })),
   });
 });
