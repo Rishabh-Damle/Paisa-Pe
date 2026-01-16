@@ -4,6 +4,7 @@ import type { IGetUserAuthInfoRequest } from "../types/express/index.js";
 import { AccountsModel } from "../db.js";
 import { userAuth } from "../middlwares/userAuth.js";
 import { startSession } from "mongoose";
+import mongoose from "mongoose";
 export const accountRounter = Router();
 accountRounter.use(express.json());
 accountRounter.get(
@@ -11,10 +12,14 @@ accountRounter.get(
   userAuth,
   async (req: IGetUserAuthInfoRequest, res) => {
     const userId = req.userId;
-    const account = await AccountsModel.findOne({
-      userId,
-    });
 
+    if (!req.userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const account = await AccountsModel.findOne({
+      user: new mongoose.Types.ObjectId(userId),
+    });
     res.status(200).json({
       Balance: account?.balance,
     });
@@ -30,7 +35,7 @@ accountRounter.post(
     const senderUserId = req.userId;
     const { reciverUserId, amount } = req.body;
     const senderAccount = await AccountsModel.findOne({
-      senderUserId,
+      user: new mongoose.Types.ObjectId(senderUserId),
     });
     if (!senderAccount) {
       return res.status(400).json({ message: "Invalid sender account" });
@@ -41,7 +46,7 @@ accountRounter.post(
     }
 
     const reciverAccount = await AccountsModel.findOne({
-      reciverUserId,
+      user: new mongoose.Types.ObjectId(reciverUserId),
     });
 
     if (!reciverAccount) {
@@ -50,27 +55,14 @@ accountRounter.post(
       });
     }
 
-    await AccountsModel.findByIdAndUpdate(
-      {
-        senderUserId,
-      },
-      {
-        $inc: {
-          balance: -amount,
-        },
-      }
-    );
-
-    await AccountsModel.findByIdAndUpdate(
-      {
-        reciverUserId,
-      },
-      {
-        $inc: {
-          balance: amount,
-        },
-      }
-    );
+    await AccountsModel.updateOne(
+      { user: new mongoose.Types.ObjectId(senderUserId) },
+      { $inc: { balance: -amount } }
+    ).session(session);
+    await AccountsModel.updateOne(
+      { user: new mongoose.Types.ObjectId(reciverUserId) },
+      { $inc: { balance: amount } }
+    ).session(session);
 
     await session.commitTransaction();
     res.status(200).json({

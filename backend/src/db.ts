@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import mongoose, { Types } from "mongoose";
 import { DB_URL } from "./config.js";
-
+console.log(DB_URL);
 if (DB_URL) {
   mongoose
     .connect(DB_URL)

@@ -96,7 +96,7 @@ userRouter.post("/signin", async (req, res) => {
     return;
   }
 
-  const token = jwt.sign({ userId: user._id.toString() }, JWT_SECRET);
+  const token = jwt.sign({ userId: user._id }, JWT_SECRET);
 
   res.status(200).json({
     Message: `Signed up succsessfully`,
@@ -122,14 +122,14 @@ userRouter.put(
       });
     }
 
-    await UserModel.updateOne({ userId }, req.body);
+    const user = await UserModel.findByIdAndUpdate(userId, req.body);
     res.status(200).json({
       Message: `Information updated succsessfully`,
     });
   }
 );
 
-userRouter.get("/getUsersInfo", userAuth, async (req, res) => {
+userRouter.get("/getUserInfo", userAuth, async (req, res) => {
   const { firstName, lastName } = req.body;
   const users = await UserModel.find({
     $or: [{ firstName: firstName }, { lastName: lastName }],

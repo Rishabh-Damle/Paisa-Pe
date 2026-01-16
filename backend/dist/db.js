@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import mongoose, { Types } from "mongoose";
 import { DB_URL } from "./config.js";
+console.log(DB_URL);
 if (DB_URL) {
     mongoose
         .connect(DB_URL)
@@ -44,8 +45,10 @@ const userSchema = new Schema({
         maxLength: 50,
     },
 });
-const UserModel = model("User", userSchema);
-module.exports = {
-    UserModel,
-};
+export const UserModel = model("User", userSchema);
+const AccountsSchema = new Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    balance: Number,
+});
+export const AccountsModel = model("Account", AccountsSchema);
 //# sourceMappingURL=db.js.map

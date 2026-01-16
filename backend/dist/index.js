@@ -1,13 +1,14 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import mongoose from "mongoose";
-import { DB_URL } from "./config.js";
+import cors from "cors";
+import { userRouter } from "./routes/user.js";
+import { accountRounter } from "./routes/account.js";
+import { PORT } from "./config.js";
 const app = express();
-async function startThedatabaseIfOnlyWhenItComes() {
-    await mongoose.connect(DB_URL);
-    console.log("Database is started");
-    app.listen(3000);
-}
-startThedatabaseIfOnlyWhenItComes();
+app.use(cors());
+app.use(express.json());
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/account", accountRounter);
+app.listen(PORT);
 //# sourceMappingURL=index.js.map
