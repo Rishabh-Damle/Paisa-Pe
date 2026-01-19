@@ -1,10 +1,10 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Signup } from "./components/Signup";
-import { Signin } from "./components/Signin";
-import { Dashboard } from "./components/Dashboard";
-import { Send } from "./components/Send";
-import { Landing } from "./components/Landing";
+import { Signup } from "./pages/Signup";
+import { Signin } from "./pages/Signin";
+import { Dashboard } from "./pages/Dashboard";
+import { Send } from "./pages/Send";
+import { Landing } from "./pages/Landing";
 
 function App() {
   return (
