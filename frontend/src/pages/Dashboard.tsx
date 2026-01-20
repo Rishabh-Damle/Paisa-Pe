@@ -1,3 +1,9 @@
+import { AppBar } from "../components/ui/AppBar";
+
 export function Dashboard() {
-  return <div>Welcome to dashboard</div>;
+  return (
+    <div className="bg-neutral-100 h-screen w-screen ">
+      <AppBar></AppBar>
+    </div>
+  );
 }
