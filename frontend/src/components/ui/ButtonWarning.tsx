@@ -10,9 +10,12 @@ export function ButtonWarning({
   to,
 }: ButtonWarningPropsTypes) {
   return (
-    <div>
+    <div className="flex justify-center font-sm p-3">
       <div>{warningText}</div>
-      <Link to={to}>{buttonText}</Link>
+      <Link to={to} className="pointer pl-1 underline">
+        {" "}
+        {buttonText}
+      </Link>
     </div>
   );
 }

@@ -5,8 +5,12 @@ interface InputPropsTypes {
 export function Input({ label, placeholder }: InputPropsTypes) {
   return (
     <div>
-      {label}
-      {placeholder}
+      <div className="text-left font-semibold py-2 text-sm"> {label}</div>
+      <input
+        type="text"
+        placeholder={placeholder}
+        className="border rounded border-slate-200 w-full px-2 py-1 outline-0"
+      />
     </div>
   );
 }
