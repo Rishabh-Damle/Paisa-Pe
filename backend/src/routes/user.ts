@@ -90,7 +90,7 @@ userRouter.post("/signin", async (req, res) => {
   const passwordMatched = await bcrypt.compare(password, user.password);
 
   if (!passwordMatched) {
-    res.status(200).json({
+    res.status(401).json({
       Message: "Please make sure to use right password, your password is wrong",
     });
     return;
@@ -99,7 +99,7 @@ userRouter.post("/signin", async (req, res) => {
   const token = jwt.sign({ userId: user._id }, JWT_SECRET);
 
   res.status(200).json({
-    Message: `Signed up succsessfully`,
+    Message: `Signed in succsessfully`,
     Token: token,
   });
 });
@@ -126,7 +126,7 @@ userRouter.put(
     res.status(200).json({
       Message: `Information updated succsessfully`,
     });
-  }
+  },
 );
 
 userRouter.get("/getUserInfo", userAuth, async (req, res) => {

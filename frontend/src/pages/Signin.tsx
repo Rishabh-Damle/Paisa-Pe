@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { Button } from "../components/ui/Button";
 import { ButtonWarning } from "../components/ui/ButtonWarning";
 import { Heading } from "../components/ui/Heading";
 import { Input } from "../components/ui/Input";
 import { SubHeading } from "../components/ui/Subheading";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export function Signin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   return (
     <div className="bg-gray-50 h-screen w-screen flex justify-center items-center">
       <div className="flex-col justify-center">
@@ -13,9 +18,34 @@ export function Signin() {
           {" "}
           <Heading label="Sign In"></Heading>
           <SubHeading label="Enter your credentials to accsess your account"></SubHeading>
-          <Input label="Email" placeholder="johndoe@example.com"></Input>
-          <Input label="Password" placeholder=""></Input>
-          <Button text="Sign In"></Button>
+          <Input
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            label="Email"
+            placeholder="johndoe@example.com"
+          ></Input>
+          <Input
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            label="Password"
+            placeholder=""
+          ></Input>
+          <Button
+            text="Sign In"
+            onClick={async () => {
+              const response = axios.post(
+                "http://localhost:3000/api/v1/user/signin",
+                {
+                  username: email,
+                  password: password,
+                },
+              );
+              localStorage.setItem("token", (await response).data.Token);
+              navigate("/dashboard");
+            }}
+          ></Button>
           <ButtonWarning
             warningText="Don't have an account?"
             to={"/Signup"}

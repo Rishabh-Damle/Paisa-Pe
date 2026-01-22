@@ -3,7 +3,15 @@ import { SubHeading } from "../components/ui/Subheading";
 import { Input } from "../components/ui/Input";
 import { ButtonWarning } from "../components/ui/ButtonWarning";
 import { Button } from "../components/ui/Button";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export function Signup() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   return (
     <div className="bg-gray-50 h-screen w-screen flex justify-center items-center">
       <div className="flex-col justify-center">
@@ -12,11 +20,49 @@ export function Signup() {
           {" "}
           <Heading label="Sign Up"></Heading>
           <SubHeading label="Enter your infromation to create an account"></SubHeading>
-          <Input label="First Name" placeholder="John"></Input>
-          <Input label="Last Name" placeholder="Doe"></Input>
-          <Input label="Email" placeholder="johndoe@example.com"></Input>
-          <Input label="Password" placeholder=""></Input>
-          <Button text="Sign Up"></Button>
+          <Input
+            onChange={(e) => {
+              setFirstName(e.target.value);
+            }}
+            label="First Name"
+            placeholder="John"
+          ></Input>
+          <Input
+            label="Last Name"
+            placeholder="Doe"
+            onChange={(e) => {
+              setLastName(e.target.value);
+            }}
+          ></Input>
+          <Input
+            label="Email"
+            placeholder="johndoe@example.com"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          ></Input>
+          <Input
+            label="Password"
+            placeholder=""
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          ></Input>
+          <Button
+            text="Sign Up"
+            onClick={async () => {
+              await axios.post("http://localhost:3000/api/v1/user/signup", {
+                username: email,
+                firstName: firstName,
+                lastName: lastName,
+                password: password,
+              });
+              alert(
+                "You succsessfully created your account for further tasks please signin on the platforms",
+              );
+              navigate("/signin");
+            }}
+          ></Button>
           <ButtonWarning
             warningText="Already have an account?"
             to={"/Signin"}
