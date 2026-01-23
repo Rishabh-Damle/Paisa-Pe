@@ -1,12 +1,6 @@
-import {
-  Wallet,
-  Send,
-  Shield,
-  ArrowRight,
-  CheckCircle2,
-  Zap,
-} from "lucide-react";
-
+import { Wallet, Send, Shield, ArrowRight, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
+import { FaGithub } from "react-icons/fa";
 export function Landing() {
   return (
     <div className="min-h-screen bg-white">
@@ -18,12 +12,12 @@ export function Landing() {
               <span className="text-2xl font-bold">Paisa-Pe</span>
             </div>
             <div className="flex space-x-4">
-              <button className="px-4 py-2 text-gray-700 hover:text-black transition-colors cursor-pointer">
-                Login
+              <button className="border-2 border-black text-black rounded-lg hover:bg-gray-50 transition-colors px-6 py-2 cursor-pointer">
+                <Link to="/signin">Login</Link>
               </button>
 
               <button className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors cursor-pointer">
-                Sign Up
+                <Link to="/signup">Sign Up</Link>
               </button>
             </div>
           </div>
@@ -43,13 +37,20 @@ export function Landing() {
               initial dummy balance.
             </p>
             <div className="flex justify-center space-x-4">
-              <button className="px-8 py-4 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors flex items-center space-x-2 text-lg font-medium cursor-pointer">
-                <span>Get Started</span>
+              <div className="px-8 py-4 bg-black text-white rounded-lg transition-colors flex items-center space-x-2 text-lg font-medium ">
+                <span>Click to contribute</span>
                 <ArrowRight className="w-5 h-5" />
-              </button>
-              <button className="px-8 py-4 border-2 border-black text-black rounded-lg hover:bg-gray-50 transition-colors text-lg font-medium cursor-pointer">
-                Learn More
-              </button>
+              </div>
+              <a
+                href="https://github.com/Rishabh-Damle/Paisa-Pe"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {" "}
+                <button className="px-8 py-4 border-2 border-black text-black rounded-lg hover:bg-gray-50 transition-colors text-lg font-medium cursor-pointer">
+                  <FaGithub className="text-2xl" />
+                </button>
+              </a>
             </div>
           </div>
         </div>
@@ -96,60 +97,6 @@ export function Landing() {
                 Bank-level security with atomic transactions and proper
                 authentication.
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between pl-6 pr-6 items-center">
-            <div>
-              <h2 className="text-4xl font-bold mb-6">The Problem</h2>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-gray-300 rounded-full flex shrink-0 mt-1"></div>
-                  <p className="text-gray-700 text-lg">
-                    Cash transactions are slow and inconvenient
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-gray-300 rounded-full flex shrink-0 mt-1"></div>
-                  <p className="text-gray-700 text-lg">
-                    Hard to track your spending
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-gray-300 rounded-full flex shrink-0 mt-1"></div>
-                  <p className="text-gray-700 text-lg">
-                    Complex payment systems create friction
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-4xl font-bold mb-6">The Solution</h2>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <CheckCircle2 className="w-6 h-6 flex shrink-0 mt-1" />
-                  <p className="text-gray-700 text-lg">
-                    Simple wallet-based payment system
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <CheckCircle2 className="w-6 h-6 flex shrink-0 mt-1" />
-                  <p className="text-gray-700 text-lg">
-                    Secure user authentication
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <CheckCircle2 className="w-6 h-6 flexshrink-0 mt-1" />
-                  <p className="text-gray-700 text-lg">
-                    Easy peer-to-peer money transfers
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -205,8 +152,9 @@ export function Landing() {
           <p className="text-xl text-gray-600 mb-10">
             Join Paisa-Pe for their daily transactions
           </p>
-          <button className="px-10 py-5 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-xl font-medium inline-flex items-center space-x-2">
-            <span className="cursor-pointer">Create Your Wallet</span>
+          <button className="cursor-pointer px-10 py-5 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-xl font-medium inline-flex items-center space-x-2">
+            <Link to="/signup">Create Your Wallet</Link>
+
             <ArrowRight className="w-6 h-6" />
           </button>
         </div>
