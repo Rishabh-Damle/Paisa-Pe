@@ -49,8 +49,7 @@ export function SendMoney() {
                     },
                     {
                       headers: {
-                        Authorization:
-                          "Bearer " + localStorage.getItem("Token"),
+                        Authorization: localStorage.getItem("Token"),
                       },
                     },
                   );
