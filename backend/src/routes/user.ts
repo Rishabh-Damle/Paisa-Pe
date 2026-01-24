@@ -7,8 +7,8 @@ import { UserModel, AccountsModel } from "../db.js";
 import { JWT_SECRET } from "../config.js";
 import { userAuth } from "../middlwares/userAuth.js";
 import type { IGetUserAuthInfoRequest } from "../types/express/index.js";
+import FilterQuery from "mongoose";
 export const userRouter = Router();
-
 userRouter.use(express.json());
 userRouter.post("/signup", async (req, res) => {
   const { username, password, firstName, lastName } = req.body;
@@ -129,23 +129,20 @@ userRouter.put(
   },
 );
 
-userRouter.get("/getUserInfo", userAuth, async (req, res) => {
-  const { firstName, lastName } = req.body;
+userRouter.get("/bulk", userAuth, async (req, res) => {
+  const filter: string =
+    typeof req.query.filter === "string" ? req.query.filter : "";
+  const regex = new RegExp(filter, "i");
   const users = await UserModel.find({
-    $or: [{ firstName: firstName }, { lastName: lastName }],
+    $or: [{ firstName: regex }, { lastName: regex }],
   });
-
-  if (!users) {
-    res.status(404).json({
-      Message: "Error while fetching users from DB",
-    });
-  }
 
   res.status(200).json({
     User: users.map((user) => ({
       username: user.username,
       firstname: user.firstName,
       lastName: user.lastName,
+      userId: user._id,
     })),
   });
 });

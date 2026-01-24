@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import { UserModel, AccountsModel } from "../db.js";
 import { JWT_SECRET } from "../config.js";
 import { userAuth } from "../middlwares/userAuth.js";
+import FilterQuery from "mongoose";
 export const userRouter = Router();
 userRouter.use(express.json());
 userRouter.post("/signup", async (req, res) => {
@@ -77,14 +78,14 @@ userRouter.post("/signin", async (req, res) => {
     }
     const passwordMatched = await bcrypt.compare(password, user.password);
     if (!passwordMatched) {
-        res.status(200).json({
+        res.status(401).json({
             Message: "Please make sure to use right password, your password is wrong",
         });
         return;
     }
     const token = jwt.sign({ userId: user._id }, JWT_SECRET);
     res.status(200).json({
-        Message: `Signed up succsessfully`,
+        Message: `Signed in succsessfully`,
         Token: token,
     });
 });
@@ -107,21 +108,24 @@ userRouter.put("/updateInfo", userAuth, async (req, res) => {
         Message: `Information updated succsessfully`,
     });
 });
-userRouter.get("/getUserInfo", userAuth, async (req, res) => {
-    const { firstName, lastName } = req.body;
+userRouter.get("/bulk", userAuth, async (req, res) => {
+    const filter = typeof req.query.filter === "string" ? req.query.filter : "";
+    const regex = new RegExp(filter, "i");
     const users = await UserModel.find({
-        $or: [{ firstName: firstName }, { lastName: lastName }],
+        $or: [{ firstName: regex }, { lastName: regex }],
     });
     if (!users) {
         res.status(404).json({
             Message: "Error while fetching users from DB",
         });
+        return;
     }
     res.status(200).json({
         User: users.map((user) => ({
             username: user.username,
             firstname: user.firstName,
             lastName: user.lastName,
+            userId: user._id,
         })),
     });
 });
