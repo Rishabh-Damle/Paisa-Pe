@@ -24,7 +24,7 @@ export function Users() {
           "http://localhost:3000/api/v1/user/bulk?filter=" + filter,
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: localStorage.getItem("token"),
             },
           },
         );
@@ -81,7 +81,12 @@ function User({ user }: UserProps) {
         <button
           onClick={() => {
             navigate(
-              "/sendMoney?id=" + user.userId + "&name=" + user.firstname,
+              "/sendMoney?id=" +
+                user.userId +
+                "&firstName=" +
+                user.firstname +
+                "&lastName=" +
+                user.lastName,
             );
           }}
           type="submit"

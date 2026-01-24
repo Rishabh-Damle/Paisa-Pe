@@ -108,7 +108,7 @@ userRouter.put("/updateInfo", userAuth, async (req, res) => {
         Message: `Information updated succsessfully`,
     });
 });
-userRouter.get("/bulk", async (req, res) => {
+userRouter.get("/bulk", userAuth, async (req, res) => {
     const filter = typeof req.query.filter === "string" ? req.query.filter : "";
     const regex = new RegExp(filter, "i");
     const users = await UserModel.find({

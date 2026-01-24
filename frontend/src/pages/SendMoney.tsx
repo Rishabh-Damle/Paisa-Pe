@@ -7,7 +7,8 @@ import axios from "axios";
 export function SendMoney() {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
-  const name = searchParams.get("name");
+  const firstName = searchParams.get("firstName");
+  const lastName = searchParams.get("lastName");
   const [amount, setAmount] = useState<number>(0);
   return (
     <div className="bg-gray-50 h-screen w-screen flex justify-center items-center">
@@ -20,12 +21,14 @@ export function SendMoney() {
             {" "}
             <div className="flex">
               {" "}
-              <div className="rounded-full h-10 w-10 bg-green-500 flex justify-center mt-5 mr-3">
+              <div className="rounded-full h-10 w-10 bg-green-500 flex justify-center mt-5 mr-2">
                 <div className="flex flex-col justify-center h-full text-xl text-white font-semibold">
                   <FaUser></FaUser>
                 </div>
               </div>
-              <div className="mt-6 text-lg font-bold ml-2">Friend's Name</div>
+              <div className="mt-6 text-lg font-bold ml-2 flex">
+                <div className="pr-1">{firstName}</div> <div>{lastName}</div>
+              </div>
             </div>
             <div>
               <input
@@ -49,7 +52,7 @@ export function SendMoney() {
                     },
                     {
                       headers: {
-                        Authorization: localStorage.getItem("Token"),
+                        Authorization: localStorage.getItem("token"),
                       },
                     },
                   );
