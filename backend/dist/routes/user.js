@@ -108,18 +108,12 @@ userRouter.put("/updateInfo", userAuth, async (req, res) => {
         Message: `Information updated succsessfully`,
     });
 });
-userRouter.get("/bulk", userAuth, async (req, res) => {
+userRouter.get("/bulk", async (req, res) => {
     const filter = typeof req.query.filter === "string" ? req.query.filter : "";
     const regex = new RegExp(filter, "i");
     const users = await UserModel.find({
         $or: [{ firstName: regex }, { lastName: regex }],
     });
-    if (!users) {
-        res.status(404).json({
-            Message: "Error while fetching users from DB",
-        });
-        return;
-    }
     res.status(200).json({
         User: users.map((user) => ({
             username: user.username,

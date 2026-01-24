@@ -23,7 +23,7 @@ accountRounter.get(
     res.status(200).json({
       Balance: account?.balance,
     });
-  }
+  },
 );
 
 accountRounter.post(
@@ -57,16 +57,16 @@ accountRounter.post(
 
     await AccountsModel.updateOne(
       { user: new mongoose.Types.ObjectId(senderUserId) },
-      { $inc: { balance: -amount } }
+      { $inc: { balance: -amount } },
     ).session(session);
     await AccountsModel.updateOne(
       { user: new mongoose.Types.ObjectId(reciverUserId) },
-      { $inc: { balance: amount } }
+      { $inc: { balance: amount } },
     ).session(session);
 
     await session.commitTransaction();
     res.status(200).json({
       Message: "Transfer successful",
     });
-  }
+  },
 );

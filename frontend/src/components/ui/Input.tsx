@@ -2,7 +2,7 @@ import react from "react";
 interface InputPropsTypes {
   label: string;
   placeholder: string;
-  onChange: (e: react.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: react.ChangeEvent<HTMLInputElement>) => void;
 }
 export function Input({ label, placeholder, onChange }: InputPropsTypes) {
   return (
