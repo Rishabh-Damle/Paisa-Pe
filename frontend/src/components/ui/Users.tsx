@@ -37,7 +37,7 @@ export function Users() {
     }
     let clear = setTimeout(() => {
       fetchUsers();
-    }, 1000);
+    }, 800);
 
     return () => {
       clearTimeout(clear);
