@@ -30,15 +30,20 @@ export function Users() {
         );
 
         setUsers(res.data.User);
-        console.log("data", res.data.User);
+        console.log("Api called");
       } catch (error) {
         console.error("Failed to fetch users:", error);
       }
     }
+    let clear = setTimeout(() => {
+      fetchUsers();
+    }, 1000);
 
-    fetchUsers();
+    return () => {
+      clearTimeout(clear);
+    };
   }, [filter]);
-  console.log("users", users);
+
   return (
     <div className="flex flex-col p-4">
       <div className="font-bold text-xl">Users</div>
