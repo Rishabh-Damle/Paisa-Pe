@@ -1,6 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
-import { VITE_API_URL } from "../config";
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 import { useState } from "react";
 import { Button } from "../components/ui/Button";
 import { ButtonWarning } from "../components/ui/ButtonWarning";

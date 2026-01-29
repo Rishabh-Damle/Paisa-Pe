@@ -1,6 +1,5 @@
-import dotenv from "dotenv";
-dotenv.config();
-import { VITE_API_URL } from "../config";
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 import { Heading } from "../components/ui/Heading";
 import { FaUser } from "react-icons/fa";
 import { useSearchParams } from "react-router-dom";
