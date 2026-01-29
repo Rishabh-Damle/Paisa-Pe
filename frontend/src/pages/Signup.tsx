@@ -7,7 +7,7 @@ import { Button } from "../components/ui/Button";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Wallet } from "lucide-react";
+import { Wallet, Check, X } from "lucide-react";
 
 export function Signup() {
   const [firstName, setFirstName] = useState("");
@@ -15,6 +15,15 @@ export function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  // Password validation checks based on backend Zod schema
+  const passwordChecks = {
+    length: password.length >= 8 && password.length <= 16,
+    uppercase: /[A-Z]/.test(password),
+    lowercase: /[a-z]/.test(password),
+    special: /[#?!@$%^&*-]/.test(password),
+  };
+  const passedCount = Object.values(passwordChecks).filter(Boolean).length;
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center relative overflow-hidden px-4">
@@ -64,12 +73,70 @@ export function Signup() {
               type="email"
             />
             
-            <Input
-              onChange={(e) => setPassword(e.target.value)}
-              label="Password"
-              placeholder="••••••••"
-              type="password"
-            />
+            <div>
+              <Input
+                onChange={(e) => setPassword(e.target.value)}
+                label="Password"
+                placeholder="••••••••"
+                type="password"
+              />
+              
+              {/* Password Requirements Panel */}
+              {password.length > 0 && (
+                <div className="mt-2 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                  <p className="text-xs font-medium text-gray-600 mb-2">Password Requirements:</p>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    <div className="flex items-center gap-1.5">
+                      <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${passwordChecks.length ? 'bg-green-100' : 'bg-gray-200'}`}>
+                        {passwordChecks.length ? <Check className="w-2.5 h-2.5 text-green-600" /> : <X className="w-2.5 h-2.5 text-gray-400" />}
+                      </div>
+                      <span className={`text-xs ${passwordChecks.length ? 'text-green-600' : 'text-gray-500'}`}>8-16 characters</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${passwordChecks.uppercase ? 'bg-green-100' : 'bg-gray-200'}`}>
+                        {passwordChecks.uppercase ? <Check className="w-2.5 h-2.5 text-green-600" /> : <X className="w-2.5 h-2.5 text-gray-400" />}
+                      </div>
+                      <span className={`text-xs ${passwordChecks.uppercase ? 'text-green-600' : 'text-gray-500'}`}>One uppercase (A-Z)</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${passwordChecks.lowercase ? 'bg-green-100' : 'bg-gray-200'}`}>
+                        {passwordChecks.lowercase ? <Check className="w-2.5 h-2.5 text-green-600" /> : <X className="w-2.5 h-2.5 text-gray-400" />}
+                      </div>
+                      <span className={`text-xs ${passwordChecks.lowercase ? 'text-green-600' : 'text-gray-500'}`}>One lowercase (a-z)</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${passwordChecks.special ? 'bg-green-100' : 'bg-gray-200'}`}>
+                        {passwordChecks.special ? <Check className="w-2.5 h-2.5 text-green-600" /> : <X className="w-2.5 h-2.5 text-gray-400" />}
+                      </div>
+                      <span className={`text-xs ${passwordChecks.special ? 'text-green-600' : 'text-gray-500'}`}>Special char (#?!@$%^&*-)</span>
+                    </div>
+                  </div>
+                  
+                  {/* Strength Indicator */}
+                  <div className="mt-3">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-xs text-gray-500">Strength</span>
+                      <span className={`text-xs font-medium ${
+                        passedCount === 0 ? 'text-gray-400' :
+                        passedCount === 1 ? 'text-red-500' :
+                        passedCount === 2 ? 'text-orange-500' :
+                        passedCount === 3 ? 'text-yellow-500' : 'text-green-500'
+                      }`}>
+                        {passedCount === 0 ? 'Too weak' : passedCount === 1 ? 'Weak' : passedCount === 2 ? 'Fair' : passedCount === 3 ? 'Good' : 'Strong'}
+                      </span>
+                    </div>
+                    <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                      <div className={`h-full transition-all duration-300 rounded-full ${
+                        passedCount === 0 ? 'bg-gray-300 w-0' :
+                        passedCount === 1 ? 'bg-red-500 w-1/4' :
+                        passedCount === 2 ? 'bg-orange-500 w-2/4' :
+                        passedCount === 3 ? 'bg-yellow-500 w-3/4' : 'bg-green-500 w-full'
+                      }`} />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
 
             <div className="pt-2">
               <Button
