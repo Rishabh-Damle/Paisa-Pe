@@ -20,7 +20,7 @@ userRouter.post("/signup", async (req, res) => {
   }
 
   const requiredBody = z.object({
-    username: z.string().toLowerCase().min(5),
+    username: z.string().toLowerCase(),
     password: z
       .string()
       .min(8)
@@ -28,8 +28,8 @@ userRouter.post("/signup", async (req, res) => {
       .regex(/[A-Z]/, "Must contain atleast one upercase later")
       .regex(/[a-z]/, "Must contain atleast one lowercase later")
       .regex(/[#?!@$%^&*-]/, "Must contain atleast one special character"),
-    firstName: z.string().min(5).max(100),
-    lastName: z.string().min(5).max(100),
+    firstName: z.string().min(3).max(100),
+    lastName: z.string().min(3).max(100),
   });
 
   const parsedDataWithSuccsess = requiredBody.safeParse(req.body);
