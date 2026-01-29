@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 dotenv.config();
 import { VITE_API_URL } from "../config";
 import { Heading } from "../components/ui/Heading";
-import { Input } from "../components/ui/Input";
 import { FaUser } from "react-icons/fa";
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
