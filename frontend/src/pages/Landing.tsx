@@ -1,4 +1,4 @@
-import { Wallet, Send, Shield, ArrowRight, Zap, Menu, X, CheckCircle } from "lucide-react";
+import { Wallet, Send, Shield, ArrowRight, Zap, Menu, X, } from "lucide-react";
 import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import { useState } from "react";
