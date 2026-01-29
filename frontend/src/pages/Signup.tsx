@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+import { VITE_API_URL } from "../config";
 import { Heading } from "../components/ui/Heading";
 import { SubHeading } from "../components/ui/Subheading";
 import { Input } from "../components/ui/Input";
@@ -51,7 +54,7 @@ export function Signup() {
           <Button
             text="Sign Up"
             onClick={async () => {
-              await axios.post("http://localhost:3000/api/v1/user/signup", {
+              await axios.post(VITE_API_URL + "/api/v1/user/signup", {
                 username: email,
                 firstName: firstName,
                 lastName: lastName,

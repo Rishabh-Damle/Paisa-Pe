@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+import { VITE_API_URL } from "../../config";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
@@ -21,7 +24,7 @@ export function Users() {
     async function fetchUsers() {
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/v1/user/bulk?filter=" + filter,
+          VITE_API_URL + "/api/v1/user/bulk?filter=" + filter,
           {
             headers: {
               Authorization: localStorage.getItem("token"),

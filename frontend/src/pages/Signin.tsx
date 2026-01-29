@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+import { VITE_API_URL } from "../config";
 import { useState } from "react";
 import { Button } from "../components/ui/Button";
 import { ButtonWarning } from "../components/ui/ButtonWarning";
@@ -36,7 +39,7 @@ export function Signin() {
             text="Sign In"
             onClick={async () => {
               const response = axios.post(
-                "http://localhost:3000/api/v1/user/signin",
+                VITE_API_URL + "/api/v1/user/signin",
                 {
                   username: email,
                   password: password,

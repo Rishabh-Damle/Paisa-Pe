@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+import { VITE_API_URL } from "../config";
 import { Heading } from "../components/ui/Heading";
 import { Input } from "../components/ui/Input";
 import { FaUser } from "react-icons/fa";
@@ -45,7 +48,7 @@ export function SendMoney() {
               <button
                 onClick={() => {
                   axios.post(
-                    "http://localhost:3000/api/v1/account/transfer",
+                    VITE_API_URL + "/api/v1/account/transfer",
                     {
                       reciverUserId: id,
                       amount: amount,

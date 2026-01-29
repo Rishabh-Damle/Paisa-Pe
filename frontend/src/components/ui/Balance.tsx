@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+import { VITE_API_URL } from "../../config";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -11,14 +14,11 @@ export function Balance({ value }: BalancePropsType) {
   useEffect(() => {
     async function getBalance() {
       try {
-        const res = await axios.get(
-          "http://localhost:3000/api/v1/account/balance",
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
+        const res = await axios.get(VITE_API_URL + "/api/v1/account/balance", {
+          headers: {
+            Authorization: localStorage.getItem("token"),
           },
-        );
+        });
 
         setBalance(res.data.Balance);
         console.log("data", res.data.User);
