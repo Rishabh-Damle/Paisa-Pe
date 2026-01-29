@@ -1,8 +1,9 @@
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { Search, Send } from "lucide-react";
+
 type UserType = {
   userId: string;
   firstname: string;
@@ -29,16 +30,14 @@ export function Users() {
             },
           },
         );
-
         setUsers(res.data.User);
-        console.log("Api called");
       } catch (error) {
         console.error("Failed to fetch users:", error);
       }
     }
-    let clear = setTimeout(() => {
+    const clear = setTimeout(() => {
       fetchUsers();
-    }, 800);
+    }, 500);
 
     return () => {
       clearTimeout(clear);
@@ -46,20 +45,22 @@ export function Users() {
   }, [filter]);
 
   return (
-    <div className="flex flex-col p-4">
-      <div className="font-bold text-xl">Users</div>
-      <div>
-        <input
-          onChange={(e) => {
-            setFilter(e.target.value);
-          }}
-          type="text"
-          placeholder="Search users..."
-          className="border border-neutral-400 outline-0 w-full py-1 mt-3 px-2 rounded-lg"
-        />
+    <div className="mt-8">
+      <h3 className="font-bold text-xl mb-4 text-black">People</h3>
+      
+      <div className="relative mb-6">
+         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Search className="h-5 w-5 text-gray-400" />
+         </div>
+         <input
+           onChange={(e) => setFilter(e.target.value)}
+           type="text"
+           placeholder="Search users..."
+           className="pl-10 w-full px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all duration-200 bg-white"
+         />
       </div>
 
-      <div>
+      <div className="space-y-3">
         {Array.isArray(users) &&
           users.map((user) => <User key={user.userId} user={user} />)}
       </div>
@@ -70,37 +71,37 @@ export function Users() {
 function User({ user }: UserProps) {
   const navigate = useNavigate();
   return (
-    <div className="flex justify-between mt-6">
-      <div className="flex">
-        <div className="rounded-full h-12 w-12 bg-slate-200 flex justify-center mt-1 mr-2">
-          <div className="flex flex-col justify-center h-full text-xl">
-            <FaUser />
-          </div>
+    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 bg-white border border-gray-100 rounded-xl hover:shadow-md transition-shadow duration-200 group gap-3">
+      <div className="flex items-center space-x-3">
+        <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 transition-colors text-black flex-shrink-0">
+           <span className="text-lg sm:text-xl font-medium">
+             {user.firstname[0].toUpperCase()}
+           </span>
         </div>
-        <div className="flex flex-col h-full justify-center pl-2 text-xl">
-          <div>
+        <div className="min-w-0">
+          <h4 className="font-semibold text-gray-900 truncate">
             {user.firstname} {user.lastName}
-          </div>
+          </h4>
+          <p className="text-sm text-gray-500 truncate">@{user.username || 'user'}</p>
         </div>
       </div>
-      <div className="mr-3">
-        <button
-          onClick={() => {
-            navigate(
-              "/sendMoney?id=" +
-                user.userId +
-                "&firstName=" +
-                user.firstname +
-                "&lastName=" +
-                user.lastName,
-            );
-          }}
-          type="submit"
-          className="bg-neutral-800 hover:bg-neutral-700 text-neutral-50 rounded-lg py-1.5 px-2 cursor-pointer"
-        >
-          Send Money
-        </button>
-      </div>
+      
+      <button
+        onClick={() => {
+          navigate(
+            "/sendMoney?id=" +
+              user.userId +
+              "&firstName=" +
+              user.firstname +
+              "&lastName=" +
+              user.lastName,
+          );
+        }}
+        className="bg-black hover:bg-gray-800 text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors flex items-center justify-center space-x-2 cursor-pointer w-full sm:w-auto"
+      >
+        <span>Send</span>
+        <Send className="w-4 h-4" />
+      </button>
     </div>
   );
 }

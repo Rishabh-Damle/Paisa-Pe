@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #000000;
+  --color-secondary: #ffffff;
+  --font-display: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+  --animate-slide-up: slideUp 0.5s ease-out forwards;
+  --animate-slide-up-delayed: slideUp 0.5s ease-out 0.2s forwards;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
