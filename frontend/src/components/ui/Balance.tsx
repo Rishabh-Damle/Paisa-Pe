@@ -8,7 +8,7 @@ interface BalancePropsType {
   value: number;
 }
 
-export function Balance({ value }: BalancePropsType) {
+export function Balance({}: BalancePropsType) {
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
