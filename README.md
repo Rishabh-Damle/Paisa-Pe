@@ -5,7 +5,7 @@ It allows users to securely register, manage their balance, and send money to ot
 
 This project focuses on understanding real-world payment flows, authentication, and transaction handling using a modern full-stack setup.
 
-![Landing Page](frontend/assets/Screenshot-2026-01-25-132056.png)
+![Landing Page](frontend/assets/Screenshot%202026-01-30%20123852.png)
 
 ## Problem Statement
 
